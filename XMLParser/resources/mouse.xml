@@ -1,0 +1,14 @@
+<device id="0000_some_id">
+    <name>Mouse</name>
+    <origin>China</origin>
+    <price>150</price>
+    <type>
+        <pereferial>true</pereferial>
+        <energy-consumption>3</energy-consumption>
+        <group>IO</group>
+        <ports-root>
+            <port>USB</port>
+        </ports-root>
+    </type>
+    <critical>false</critical>
+</device>

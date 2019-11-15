@@ -1,0 +1,17 @@
+<device id="0001_some_id">
+    <name>Energy Case</name>
+    <origin>USA</origin>
+    <price>120</price>
+    <type>
+        <pereferial>false</pereferial>
+        <energy-consumption>10</energy-consumption>
+        <has-cooler/>
+        <group>IO</group>
+        <ports-root>
+            <port>USB</port>
+            <port>COM</port>
+            <port>LPT</port>
+        </ports-root>
+    </type>
+    <critical>false</critical>
+</device>

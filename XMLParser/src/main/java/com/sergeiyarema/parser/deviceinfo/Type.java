@@ -23,6 +23,26 @@ public class Type {
         this.ports = ports;
     }
 
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\n");
+        stringBuilder.append("- is pereferial: ").append(pereferial).append("\n");
+        stringBuilder.append("- energy consumption: ").append(energyConsumption).append(" WT").append("\n");
+        stringBuilder.append("- has cooler: ").append(hasCooler).append("\n");
+        stringBuilder.append("- group: ").append(group.toString()).append("\n");
+        stringBuilder.append("- ports: ").append(portsListString()).append("\n");
+
+        return stringBuilder.toString();
+    }
+
+    private String portsListString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Port port : ports) {
+            stringBuilder.append(port.toString()).append("; ");
+        }
+        return stringBuilder.toString();
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(pereferial, energyConsumption, hasCooler, group, ports);
@@ -39,5 +59,45 @@ public class Type {
                 hasCooler == type.hasCooler &&
                 group.equals(type.group) &&
                 ports.equals(type.ports));
+    }
+
+    public Boolean getPereferial() {
+        return pereferial;
+    }
+
+    public void setPereferial(Boolean pereferial) {
+        this.pereferial = pereferial;
+    }
+
+    public Integer getEnergyConsumption() {
+        return energyConsumption;
+    }
+
+    public void setEnergyConsumption(Integer energyConsumption) {
+        this.energyConsumption = energyConsumption;
+    }
+
+    public Boolean getHasCooler() {
+        return hasCooler;
+    }
+
+    public void setHasCooler(Boolean hasCooler) {
+        this.hasCooler = hasCooler;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public List<Port> getPorts() {
+        return ports;
+    }
+
+    public void setPorts(List<Port> ports) {
+        this.ports = ports;
     }
 }
