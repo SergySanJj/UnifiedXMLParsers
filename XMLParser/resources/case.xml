@@ -5,7 +5,7 @@
     <type>
         <pereferial>false</pereferial>
         <energy-consumption>10</energy-consumption>
-        <has-cooler/>
+        <has-cooler>2</has-cooler>
         <group>IO</group>
         <ports-root>
             <port>USB</port>

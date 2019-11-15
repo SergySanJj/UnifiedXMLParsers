@@ -4,21 +4,23 @@ package com.sergeiyarema.parser.deviceinfo;
      группа комплектующих (устройства ввода-вывода, мультимедийные), порты (COM, USB, LPT).
      */
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Type {
     private Boolean pereferial;
     private Integer energyConsumption;
-    private Boolean hasCooler;
+    private Integer hasCoolers;
     private Group group;
     private List<Port> ports;
 
-    public Type(Boolean pereferial, Integer energyConsumption, Boolean hasCooler, Group group, List<Port> ports) {
+    public Type() {
+    }
+
+    public Type(Boolean pereferial, Integer energyConsumption, Integer hasCoolers, Group group, List<Port> ports) {
         this.pereferial = pereferial;
         this.energyConsumption = energyConsumption;
-        this.hasCooler = hasCooler;
+        this.hasCoolers = hasCoolers;
         this.group = group;
         this.ports = ports;
     }
@@ -28,7 +30,8 @@ public class Type {
         stringBuilder.append("\n");
         stringBuilder.append("- is pereferial: ").append(pereferial).append("\n");
         stringBuilder.append("- energy consumption: ").append(energyConsumption).append(" WT").append("\n");
-        stringBuilder.append("- has cooler: ").append(hasCooler).append("\n");
+        if (hasCoolers != null)
+            stringBuilder.append("- has coolers: ").append(hasCoolers).append("\n");
         stringBuilder.append("- group: ").append(group.toString()).append("\n");
         stringBuilder.append("- ports: ").append(portsListString()).append("\n");
 
@@ -45,7 +48,7 @@ public class Type {
 
     @Override
     public int hashCode() {
-        return Objects.hash(pereferial, energyConsumption, hasCooler, group, ports);
+        return Objects.hash(pereferial, energyConsumption, hasCoolers, group, ports);
     }
 
     @Override
@@ -56,7 +59,7 @@ public class Type {
         Type type = (Type) o;
         return (pereferial == type.pereferial &&
                 energyConsumption.equals(type.energyConsumption) &&
-                hasCooler == type.hasCooler &&
+                hasCoolers == type.hasCoolers &&
                 group.equals(type.group) &&
                 ports.equals(type.ports));
     }
@@ -77,12 +80,12 @@ public class Type {
         this.energyConsumption = energyConsumption;
     }
 
-    public Boolean getHasCooler() {
-        return hasCooler;
+    public Integer getHasCoolers() {
+        return hasCoolers;
     }
 
-    public void setHasCooler(Boolean hasCooler) {
-        this.hasCooler = hasCooler;
+    public void setHasCoolers(Integer hasCoolers) {
+        this.hasCoolers = hasCoolers;
     }
 
     public Group getGroup() {

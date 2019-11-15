@@ -19,9 +19,14 @@ import java.util.Objects;
 public class Device implements Comparable<Device> {
     private String id;
     private String name;
+
+    private String origin;
     private Integer price;
     private Type type;
     private Boolean critical;
+
+    public Device() {
+    }
 
     public Device(String id, String name, Integer price, Type type, Boolean critical) {
         this.id = id;
@@ -121,12 +126,12 @@ public class Device implements Comparable<Device> {
         this.type.setEnergyConsumption(energyConsumption);
     }
 
-    public Boolean getHasCooler() {
-        return this.type.getHasCooler();
+    public Integer getHasCooler() {
+        return this.type.getHasCoolers();
     }
 
-    public void setHasCooler(Boolean hasCooler) {
-        this.type.setHasCooler(hasCooler);
+    public void setHasCooler(Integer hasCooler) {
+        this.type.setHasCoolers(hasCooler);
     }
 
     public Group getGroup() {
@@ -143,5 +148,13 @@ public class Device implements Comparable<Device> {
 
     public void setPorts(List<Port> ports) {
         this.type.setPorts(ports);
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 }

@@ -33,7 +33,7 @@
                         <xs:sequence>
                             <xs:element name="pereferial" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
                             <xs:element name="energy-consumption" type="xs:int" minOccurs="1" maxOccurs="1"/>
-                            <xs:element name="has-cooler" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="has-cooler" type="xs:int" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="group" type="group" minOccurs="1" maxOccurs="1"/>
                             <xs:element name="ports-root" minOccurs="0" maxOccurs="1">
                                 <xs:complexType>
