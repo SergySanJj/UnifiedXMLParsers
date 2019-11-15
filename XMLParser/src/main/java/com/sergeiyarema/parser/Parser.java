@@ -1,8 +1,5 @@
 package com.sergeiyarema.parser;
 
-public class Parser {
+interface Parser {
 
-    public static int getOne() {
-        return 1;
-    }
 }
