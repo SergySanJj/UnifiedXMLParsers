@@ -2,6 +2,7 @@ package com.sergeiyarema.parser;
 
 import com.sergeiyarema.parser.deviceinfo.Device;
 
-interface DeviceParser {
-    Device parse(String pathToXML);
+abstract class DeviceParser {
+    protected DeviceHandler handler = new DeviceHandler();
+    abstract public Device parse(String pathToXML);
 }

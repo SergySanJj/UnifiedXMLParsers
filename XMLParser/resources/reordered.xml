@@ -1,0 +1,11 @@
+<device id="reordered_0">
+    <origin>unknown</origin>
+    <name>reordered</name>
+    <critical>false</critical>
+    <type>
+        <pereferial>false</pereferial>
+        <group>IO</group>
+        <energy-consumption>12</energy-consumption>
+    </type>
+    <price>120</price>
+</device>

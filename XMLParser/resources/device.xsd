@@ -20,7 +20,7 @@
             <xs:sequence>
                 <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
                 <xs:element name="origin" type="xs:string" maxOccurs="1"/>
-                <xs:element name="price" type="xs:integer" maxOccurs="1">
+                <xs:element name="price" maxOccurs="1">
                     <xs:simpleType>
                         <xs:restriction base="xs:integer">
                             <xs:minInclusive value="0"/>

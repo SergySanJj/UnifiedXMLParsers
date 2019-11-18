@@ -8,8 +8,8 @@ import com.sergeiyarema.parser.deviceinfo.Type;
 import java.util.ArrayList;
 
 public class DeviceHandler implements DefaultHandler<Device> {
-    private Device device;
-    private Type type;
+    protected Device device;
+    protected Type type;
 
     FieldTypes currentState;
 

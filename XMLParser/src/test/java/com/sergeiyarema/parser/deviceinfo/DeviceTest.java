@@ -14,7 +14,7 @@ public class DeviceTest {
         ArrayList<Port> ports = new ArrayList<>();
         ports.add(Port.COM);
         ports.add(Port.USB);
-        Type type = new Type(false, 128, true, Group.IO, ports);
+        Type type = new Type(false, 128, null, Group.IO, ports);
         Device device = new Device("some id", "keyboard", 111, type, false);
 
         String expected = "id: some id\n" +
@@ -23,7 +23,6 @@ public class DeviceTest {
                 "type: \n" +
                 "- is pereferial: false\n" +
                 "- energy consumption: 128 WT\n" +
-                "- has cooler: true\n" +
                 "- group: IO\n" +
                 "- ports: COM; USB; \n" +
                 "is critical: false\n";

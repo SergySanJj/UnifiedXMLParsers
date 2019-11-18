@@ -11,9 +11,7 @@ import java.io.FileNotFoundException;
 
 import static javax.xml.stream.XMLStreamConstants.*;
 
-public class StAXDeviceParser implements DeviceParser {
-
-    private DeviceHandler handler = new DeviceHandler();
+public class StAXDeviceParser extends DeviceParser {
 
     public StAXDeviceParser(){}
 
