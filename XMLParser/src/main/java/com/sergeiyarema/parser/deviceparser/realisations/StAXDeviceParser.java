@@ -1,7 +1,8 @@
-package com.sergeiyarema.parser;
+package com.sergeiyarema.parser.deviceparser.realisations;
 
 
 import com.sergeiyarema.parser.deviceinfo.Device;
+import com.sergeiyarema.parser.deviceparser.DeviceParser;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -13,10 +14,12 @@ import static javax.xml.stream.XMLStreamConstants.*;
 
 public class StAXDeviceParser extends DeviceParser {
 
-    public StAXDeviceParser(){}
+    public StAXDeviceParser() {
+        super();
+    }
 
     @Override
-    public Device parse(String xmlPath) throws IllegalArgumentException {
+    public Device parseRealisation(String xmlPath) throws IllegalArgumentException {
 
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
 

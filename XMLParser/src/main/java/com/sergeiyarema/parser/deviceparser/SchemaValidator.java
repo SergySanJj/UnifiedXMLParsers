@@ -1,4 +1,4 @@
-package com.sergeiyarema.parser;
+package com.sergeiyarema.parser.deviceparser;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;

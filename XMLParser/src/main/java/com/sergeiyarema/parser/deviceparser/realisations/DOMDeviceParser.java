@@ -1,6 +1,7 @@
-package com.sergeiyarema.parser;
+package com.sergeiyarema.parser.deviceparser.realisations;
 
 import com.sergeiyarema.parser.deviceinfo.Device;
+import com.sergeiyarema.parser.deviceparser.DeviceParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -16,11 +17,11 @@ import java.io.IOException;
 public class DOMDeviceParser extends DeviceParser {
 
     public DOMDeviceParser() {
-        handler = new DeviceHandler();
+        super();
     }
 
     @Override
-    public Device parse(String xmlPath) throws IllegalArgumentException {
+    public Device parseRealisation(String xmlPath) throws IllegalArgumentException {
         File xmlFile = new File(xmlPath);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;

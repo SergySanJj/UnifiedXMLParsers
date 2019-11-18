@@ -1,4 +1,4 @@
-package com.sergeiyarema.parser;
+package com.sergeiyarema.parser.deviceparser;
 
 import com.sergeiyarema.parser.deviceinfo.Device;
 import com.sergeiyarema.parser.deviceinfo.Group;
@@ -7,15 +7,16 @@ import com.sergeiyarema.parser.deviceinfo.Type;
 
 import java.util.ArrayList;
 
-public class DeviceHandler implements DefaultHandler<Device> {
+public class DefaultDeviceHandler implements DefaultHandler<Device> {
     protected Device device;
     protected Type type;
 
     FieldTypes currentState;
 
-    public DeviceHandler() {
+    public DefaultDeviceHandler() {
         device = new Device();
         type = new Type();
+        device.setType(type);
 
         currentState = FieldTypes.None;
     }
@@ -111,7 +112,6 @@ public class DeviceHandler implements DefaultHandler<Device> {
 
     @Override
     public Device getParseResult() {
-        device.setType(type);
         return device;
     }
 }

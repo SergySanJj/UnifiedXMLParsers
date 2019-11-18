@@ -1,9 +1,8 @@
 package com.sergeiyarema.parser;
 
+import com.sergeiyarema.parser.deviceparser.SchemaValidator;
 import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class SchemaValidatorTest {
 
@@ -17,6 +16,6 @@ public class SchemaValidatorTest {
     public void validateIncorrectFile() {
         Assert.assertFalse(SchemaValidator.validate("resources/unclosed_tag.xml", "resources/device.xsd"));
         Assert.assertFalse(SchemaValidator.validate("resources/just_device.xml", "resources/device.xsd"));
-        Assert.assertTrue(SchemaValidator.validate("resources/reordered.xml", "resources/device.xsd"));
+        Assert.assertFalse(SchemaValidator.validate("resources/reordered.xml", "resources/device.xsd"));
     }
 }

@@ -1,4 +1,4 @@
-package com.sergeiyarema.parser;
+package com.sergeiyarema.parser.deviceparser;
 
 public interface DefaultHandler<T> {
     void onTagStart(String tagName);
