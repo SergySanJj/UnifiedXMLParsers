@@ -1,7 +1,6 @@
 package com.sergeiyarema.parser.deviceparser.realisations;
 
-import com.sergeiyarema.parser.deviceinfo.Device;
-import com.sergeiyarema.parser.deviceparser.DeviceParser;
+import com.sergeiyarema.parser.deviceparser.SchemaValidator;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -16,14 +15,29 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Level;
 
-public class DOMDeviceParser extends DeviceParser {
+public class DOMParser<T> implements Parser<T> {
+    private Handler<T> handler;
+    private String schemePath = null;
 
-    public DOMDeviceParser() {
-        super();
+
+    public DOMParser(Handler<T> concreteHandler) {
+        handler = concreteHandler;
     }
 
+    public DOMParser(Handler<T> concreteHandler, String pathToSchema) {
+        handler = concreteHandler;
+        schemePath = pathToSchema;
+    }
+
+
     @Override
-    public Device parseRealisation(String xmlPath) throws IllegalArgumentException {
+    public T parse(String xmlPath) {
+        if (schemePath != null) {
+            if (!SchemaValidator.validate(xmlPath, schemePath)) {
+                return null;
+            }
+        }
+
         File xmlFile = new File(xmlPath);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
@@ -74,4 +88,3 @@ public class DOMDeviceParser extends DeviceParser {
         }
     }
 }
-

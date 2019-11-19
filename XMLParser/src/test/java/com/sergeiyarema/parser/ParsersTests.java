@@ -1,10 +1,7 @@
 package com.sergeiyarema.parser;
 
 import com.sergeiyarema.parser.deviceinfo.Device;
-import com.sergeiyarema.parser.deviceparser.DeviceParser;
-import com.sergeiyarema.parser.deviceparser.realisations.DOMDeviceParser;
-import com.sergeiyarema.parser.deviceparser.realisations.SAXDeviceParser;
-import com.sergeiyarema.parser.deviceparser.realisations.StAXDeviceParser;
+import com.sergeiyarema.parser.deviceparser.realisations.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,6 +11,8 @@ import java.util.Map;
 
 public class ParsersTests {
     private String resourcePath = "resources/";
+    private String schema = "resources/device.xsd";
+
     private Map<String, Boolean> testFiles = Map.of(
             "case", true,
             "mouse", true,
@@ -23,10 +22,11 @@ public class ParsersTests {
     );
     private Map<String, String> correctDevicesRepresentation = new HashMap<>();
 
-    private List<DeviceParser> parsers = List.of(
-            new StAXDeviceParser(),
-            new DOMDeviceParser(),
-            new SAXDeviceParser()
+    private List<Parser<Device>> parsers = List.of(
+            new StAXParser<Device>(new DeviceHandler(), schema),
+            new DOMParser<Device>(new DeviceHandler(), schema),
+            new SAXParser<Device>(new DeviceHandler(), schema)
+
     );
 
     public ParsersTests() {
@@ -59,7 +59,7 @@ public class ParsersTests {
         return resourcePath + filename + ".xml";
     }
 
-    private boolean processErrored(String filename, DeviceParser parser) {
+    private boolean processErrored(String filename, Parser<Device> parser) {
         try {
             Device res = parser.parse(formFilePath(filename));
             res.toString();
@@ -71,13 +71,13 @@ public class ParsersTests {
         return false;
     }
 
-    private String processCorrect(String filename, DeviceParser parser) {
+    private String processCorrect(String filename, Parser<Device> parser) {
         return parser.parse(formFilePath(filename)).toString();
     }
 
     @Test
     public void testParsers() {
-        for (DeviceParser parser : parsers) {
+        for (Parser<Device> parser : parsers) {
             for (Map.Entry<String, Boolean> testEntry : testFiles.entrySet()) {
                 if (testEntry.getValue()) {
                     String expected = correctDevicesRepresentation.get(testEntry.getKey());

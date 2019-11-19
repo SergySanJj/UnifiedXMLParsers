@@ -1,19 +1,20 @@
-package com.sergeiyarema.parser.deviceparser;
+package com.sergeiyarema.parser.deviceparser.realisations;
 
 import com.sergeiyarema.parser.deviceinfo.Device;
 import com.sergeiyarema.parser.deviceinfo.Group;
 import com.sergeiyarema.parser.deviceinfo.Port;
 import com.sergeiyarema.parser.deviceinfo.Type;
+import com.sergeiyarema.parser.deviceparser.FieldNames;
 
 import java.util.ArrayList;
 
-public class DefaultDeviceHandler implements DefaultHandler<Device> {
+public class DeviceHandler implements Handler<Device> {
     protected Device device;
     protected Type type;
 
     FieldNames currentState;
 
-    public DefaultDeviceHandler() {
+    public DeviceHandler() {
         device = new Device();
         type = new Type();
         device.setType(type);

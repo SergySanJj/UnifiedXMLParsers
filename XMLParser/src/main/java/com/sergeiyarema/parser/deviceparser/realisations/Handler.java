@@ -1,6 +1,6 @@
-package com.sergeiyarema.parser.deviceparser;
+package com.sergeiyarema.parser.deviceparser.realisations;
 
-public interface DefaultHandler<T> {
+interface Handler<T> {
     void onTagStart(String tagName);
 
     void onTagEnd(String tagName);

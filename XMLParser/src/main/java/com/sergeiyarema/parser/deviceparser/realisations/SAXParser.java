@@ -1,30 +1,43 @@
 package com.sergeiyarema.parser.deviceparser.realisations;
 
-import com.sergeiyarema.parser.deviceinfo.Device;
-import com.sergeiyarema.parser.deviceparser.DefaultDeviceHandler;
-import com.sergeiyarema.parser.deviceparser.DeviceParser;
+import com.sergeiyarema.parser.deviceparser.SchemaValidator;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
-import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.validation.Validator;
 import java.io.File;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.logging.Level;
 
+public class SAXParser<T> implements Parser<T> {
+    private Handler<T> handler;
+    private String schemePath = null;
 
-public class SAXDeviceParser extends DeviceParser {
-    public SAXDeviceParser() {
-        super();
+    public SAXParser(Handler<T> concreteHandler) {
+        handler = concreteHandler;
     }
 
+    public SAXParser(Handler<T> concreteHandler, String pathToSchema) {
+        handler = concreteHandler;
+        schemePath = pathToSchema;
+    }
+
+
     @Override
-    public Device parseRealisation(String xmlPath) throws IllegalArgumentException {
+    public T parse(String xmlPath) throws IllegalArgumentException {
+        if (schemePath != null) {
+            if (!SchemaValidator.validate(xmlPath, schemePath)) {
+                return null;
+            }
+        }
+
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-        Device parseResult;
+        T parseResult;
         try {
-            SAXParser saxParser = saxParserFactory.newSAXParser();
-            SAXHandlerProxy saxHandler = new SAXHandlerProxy(handler);
+            javax.xml.parsers.SAXParser saxParser = saxParserFactory.newSAXParser();
+            SAXHandlerProxy<T> saxHandler = new SAXHandlerProxy<T>(handler);
             saxParser.parse(new File(xmlPath), saxHandler);
             parseResult = handler.getParseResult();
         } catch (Exception e) {
@@ -34,15 +47,15 @@ public class SAXDeviceParser extends DeviceParser {
         return parseResult;
     }
 
-    private static class SAXHandlerProxy extends DefaultHandler {
-        private Device parseResult;
-        private DefaultDeviceHandler handler;
+    private static class SAXHandlerProxy<T> extends DefaultHandler {
+        private T parseResult;
+        private Handler<T> handler;
 
-        public SAXHandlerProxy(DefaultDeviceHandler newHandler) {
+        public SAXHandlerProxy(Handler<T> newHandler) {
             handler = newHandler;
         }
 
-        public Device getParseResult() {
+        public T getParseResult() {
             return parseResult;
         }
 

@@ -1,8 +1,6 @@
 package com.sergeiyarema.parser.deviceparser.realisations;
 
-
-import com.sergeiyarema.parser.deviceinfo.Device;
-import com.sergeiyarema.parser.deviceparser.DeviceParser;
+import com.sergeiyarema.parser.deviceparser.SchemaValidator;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -13,15 +11,31 @@ import java.util.Arrays;
 import java.util.logging.Level;
 
 import static javax.xml.stream.XMLStreamConstants.*;
+import static javax.xml.stream.XMLStreamConstants.END_ELEMENT;
 
-public class StAXDeviceParser extends DeviceParser {
+public class StAXParser<T> implements Parser<T> {
 
-    public StAXDeviceParser() {
-        super();
+    private Handler<T> handler;
+    private String schemePath = null;
+
+
+    public StAXParser(Handler<T> concreteHandler) {
+        handler = concreteHandler;
+    }
+
+    public StAXParser(Handler<T> concreteHandler, String pathToSchema) {
+        handler = concreteHandler;
+        schemePath = pathToSchema;
     }
 
     @Override
-    public Device parseRealisation(String xmlPath) throws IllegalArgumentException {
+    public T parse(String xmlPath) throws IllegalArgumentException {
+
+        if (schemePath != null) {
+            if (!SchemaValidator.validate(xmlPath, schemePath)) {
+                return null;
+            }
+        }
 
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         XMLStreamReader xmlStreamReader;
@@ -78,4 +92,3 @@ public class StAXDeviceParser extends DeviceParser {
         return xmlStreamReader;
     }
 }
-
