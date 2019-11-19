@@ -2,10 +2,13 @@ package com.sergeiyarema.parser.deviceparser;
 
 import com.sergeiyarema.parser.deviceinfo.Device;
 
+import java.util.logging.Logger;
+
 
 public abstract class DeviceParser {
     private static String schemaPath = "resources/device.xsd";
     protected DefaultDeviceHandler handler;
+    protected static Logger parserLogger = Logger.getLogger("DeviceParserLogger");
 
     public DeviceParser() {
 
@@ -13,7 +16,7 @@ public abstract class DeviceParser {
 
     protected abstract Device parseRealisation(String pathToXML);
 
-    // Return parsed device if xml file is correct
+    // Return parsed device if xml file is correct.
     public Device parse(String pathToXML) {
         if (!SchemaValidator.validate(pathToXML, schemaPath))
             return null;

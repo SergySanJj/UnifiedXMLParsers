@@ -9,6 +9,8 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
+import java.util.Arrays;
+import java.util.logging.Level;
 
 
 public class SAXDeviceParser extends DeviceParser {
@@ -26,7 +28,7 @@ public class SAXDeviceParser extends DeviceParser {
             saxParser.parse(new File(xmlPath), saxHandler);
             parseResult = handler.getParseResult();
         } catch (Exception e) {
-            e.printStackTrace();
+            parserLogger.log(Level.ALL, Arrays.toString(e.getStackTrace()));
             throw new IllegalArgumentException("Error: " + e.getMessage());
         }
         return parseResult;

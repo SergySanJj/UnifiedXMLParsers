@@ -1,6 +1,6 @@
 package com.sergeiyarema.parser.deviceparser;
 
-public enum FieldTypes {
+public enum FieldNames {
     None,
     Name,
     Origin,

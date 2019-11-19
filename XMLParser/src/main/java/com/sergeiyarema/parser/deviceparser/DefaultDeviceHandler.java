@@ -11,54 +11,54 @@ public class DefaultDeviceHandler implements DefaultHandler<Device> {
     protected Device device;
     protected Type type;
 
-    FieldTypes currentState;
+    FieldNames currentState;
 
     public DefaultDeviceHandler() {
         device = new Device();
         type = new Type();
         device.setType(type);
 
-        currentState = FieldTypes.None;
+        currentState = FieldNames.None;
     }
 
     @Override
     public void onTagStart(String tag) {
         switch (tag) {
             case "name":
-                currentState = FieldTypes.Name;
+                currentState = FieldNames.Name;
                 break;
             case "origin":
-                currentState = FieldTypes.Origin;
+                currentState = FieldNames.Origin;
                 break;
             case "price":
-                currentState = FieldTypes.Price;
+                currentState = FieldNames.Price;
                 break;
             case "type":
-                currentState = FieldTypes.Type;
+                currentState = FieldNames.Type;
                 break;
             case "pereferial":
-                currentState = FieldTypes.Pereferial;
+                currentState = FieldNames.Pereferial;
                 break;
             case "energy-consumption":
-                currentState = FieldTypes.EnergyConsumption;
+                currentState = FieldNames.EnergyConsumption;
                 break;
             case "has-cooler":
-                currentState = FieldTypes.HasCooler;
+                currentState = FieldNames.HasCooler;
                 break;
             case "group":
-                currentState = FieldTypes.Group;
+                currentState = FieldNames.Group;
                 break;
             case "ports-root":
                 type.setPorts(new ArrayList<>());
                 break;
             case "port":
-                currentState = FieldTypes.Port;
+                currentState = FieldNames.Port;
                 break;
             case "critical":
-                currentState = FieldTypes.Critical;
+                currentState = FieldNames.Critical;
                 break;
             default:
-                currentState = FieldTypes.None;
+                currentState = FieldNames.None;
         }
     }
 
@@ -107,7 +107,7 @@ public class DefaultDeviceHandler implements DefaultHandler<Device> {
                 break;
         }
 
-        currentState = FieldTypes.None;
+        currentState = FieldNames.None;
     }
 
     @Override

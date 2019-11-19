@@ -3,6 +3,7 @@ package com.sergeiyarema.parser;
 import com.sergeiyarema.parser.deviceinfo.Device;
 import com.sergeiyarema.parser.deviceparser.DeviceParser;
 import com.sergeiyarema.parser.deviceparser.realisations.DOMDeviceParser;
+import com.sergeiyarema.parser.deviceparser.realisations.SAXDeviceParser;
 import com.sergeiyarema.parser.deviceparser.realisations.StAXDeviceParser;
 
 import java.util.logging.*;
@@ -20,7 +21,7 @@ public class Main {
         device = DOMparser.parse("resources/case.xml");
         mainLogger.log(Level.INFO, device.toString());
 
-        device = DeviceParser.parse("resources/mouse.xml", new StAXDeviceParser());
+        device = DeviceParser.parse("resources/mouse.xml", new SAXDeviceParser());
         mainLogger.log(Level.INFO, device.toString());
 
     }

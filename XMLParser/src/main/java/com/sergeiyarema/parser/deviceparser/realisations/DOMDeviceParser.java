@@ -13,6 +13,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.logging.Level;
 
 public class DOMDeviceParser extends DeviceParser {
 
@@ -31,7 +33,7 @@ public class DOMDeviceParser extends DeviceParser {
             Document document = dBuilder.parse(xmlFile);
             getInfoAboutAllNodes(document.getChildNodes());
         } catch (SAXException | ParserConfigurationException | IOException e) {
-            e.printStackTrace();
+            parserLogger.log(Level.ALL, Arrays.toString(e.getStackTrace()));
             throw new IllegalArgumentException("Error while reading file: " + e.getMessage());
         }
 
@@ -43,26 +45,32 @@ public class DOMDeviceParser extends DeviceParser {
             Node node = list.item(i);
 
             if (node.getNodeType() == Node.TEXT_NODE) {
-                String textInformation = node.getNodeValue().replace("\n", "").trim();
-
-                if (!textInformation.isEmpty()) {
-                    handler.onTagStart(node.getParentNode().getNodeName());
-                    handler.setTag(list.item(i).getNodeValue());
-                }
+                processTextNode(list, i, node);
             } else {
-
                 NamedNodeMap attributes = node.getAttributes();
 
                 handler.onTagStart(node.getNodeName());
-
-                for (int k = 0; k < attributes.getLength(); k++) {
-                    Node curAttribute = attributes.item(k);
-                    handler.setAttribute(curAttribute.getNodeName(), curAttribute.getTextContent());
-                }
-
-                if (node.hasChildNodes()) getInfoAboutAllNodes(node.getChildNodes());
+                updateHandlerAttributes(attributes);
+                if (node.hasChildNodes())
+                    getInfoAboutAllNodes(node.getChildNodes());
                 handler.onTagEnd(node.getNodeName());
             }
+        }
+    }
+
+    private void updateHandlerAttributes(NamedNodeMap attributes) {
+        for (int k = 0; k < attributes.getLength(); k++) {
+            Node curAttribute = attributes.item(k);
+            handler.setAttribute(curAttribute.getNodeName(), curAttribute.getTextContent());
+        }
+    }
+
+    private void processTextNode(NodeList list, int i, Node node) {
+        String textInformation = node.getNodeValue().replace("\n", "").trim();
+
+        if (!textInformation.isEmpty()) {
+            handler.onTagStart(node.getParentNode().getNodeName());
+            handler.setTag(list.item(i).getNodeValue());
         }
     }
 }

@@ -1,9 +1,5 @@
 package com.sergeiyarema.parser.deviceinfo;
 
-/*•	Type (должно быть несколько) – периферийное либо нет, энергопотребление (ватт), наличие кулера (есть либо нет),
-     группа комплектующих (устройства ввода-вывода, мультимедийные), порты (COM, USB, LPT).
-     */
-
 import java.util.List;
 import java.util.Objects;
 

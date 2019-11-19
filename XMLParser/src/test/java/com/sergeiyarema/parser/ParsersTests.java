@@ -21,7 +21,7 @@ public class ParsersTests {
             "unclosed_tag", false,
             "just_device", false
     );
-    private Map<String, String> correctDevices = new HashMap<>();
+    private Map<String, String> correctDevicesRepresentation = new HashMap<>();
 
     private List<DeviceParser> parsers = List.of(
             new StAXDeviceParser(),
@@ -30,7 +30,7 @@ public class ParsersTests {
     );
 
     public ParsersTests() {
-        correctDevices.put("mouse",
+        correctDevicesRepresentation.put("mouse",
                 "id: 0000_some_id\n" +
                         "name: Mouse\n" +
                         "id: 150\n" +
@@ -41,7 +41,7 @@ public class ParsersTests {
                         "- ports: USB; \n" +
                         "is critical: false\n");
 
-        correctDevices.put("case",
+        correctDevicesRepresentation.put("case",
                 "id: 0001_some_id\n" +
                         "name: Energy Case\n" +
                         "id: 120\n" +
@@ -53,7 +53,6 @@ public class ParsersTests {
                         "- ports: USB; COM; LPT; \n" +
                         "is critical: false\n");
     }
-
 
 
     private String formFilePath(String filename) {
@@ -81,7 +80,7 @@ public class ParsersTests {
         for (DeviceParser parser : parsers) {
             for (Map.Entry<String, Boolean> testEntry : testFiles.entrySet()) {
                 if (testEntry.getValue()) {
-                    String expected = correctDevices.get(testEntry.getKey());
+                    String expected = correctDevicesRepresentation.get(testEntry.getKey());
                     Assert.assertEquals(expected, processCorrect(testEntry.getKey(), parser));
                 } else {
                     Assert.assertTrue(processErrored(testEntry.getKey(), parser));
